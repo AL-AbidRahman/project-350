@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Committee</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Scoped to the committee page only */
+    .committee-header {
+      text-align: center;
+      margin: 6px 0 26px;
+    }
+
+    .committee-header .section-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: #1b2a38;
+      margin: 0;
+    }
+
+    .committee-panel {
+      max-width: 1240px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e3e6ea;
+      border-radius: 16px;
+      padding: 34px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* term heading injected by script.js as an inline-styled <h3> */
+    #committee-list h3:not(.card h3) {
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #0d4b8f !important;
+      margin: 0 0 18px !important;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e6e9ed;
+    }
+
+    #committee-list > h3:not(:first-child) {
+      margin-top: 36px !important;
+    }
+
+    #committee-list .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    #committee-list .card.profile-card {
+      background: #f8f9fb;
+      border: 1px solid #e6e9ed;
+      border-radius: 12px;
+      padding: 26px 18px 22px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    #committee-list .card.profile-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
+      background: #eef2f7;
+    }
+
+    #committee-list .card.profile-card img,
+    #committee-list .card.profile-card .avatar {
+      width: 200px !important;
+      height: 200px !important;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 2px #0d4b8f;
+      margin-bottom: 14px !important;
+      cursor: zoom-in;
+    }
+
+    #committee-list .card.profile-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1b2a38;
+      margin: 0 0 6px;
+    }
+
+    #committee-list .card.profile-card p {
+      font-size: 13px;
+      color: #0d4b8f;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    #committee-list .card.profile-card p a {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12.5px;
+      font-weight: 400;
+      color: #8b95a1;
+      text-decoration: none;
+    }
+
+    #committee-list .card.profile-card p a:hover {
+      color: #0d4b8f;
+      text-decoration: underline;
+    }
+
+    #committee-list .empty {
+      text-align: center;
+      color: #999;
+      padding: 30px 0;
+    }
+
+    /* click-to-expand photo lightbox */
+    .photo-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 14, 20, 0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+      padding: 30px;
+    }
+
+    .photo-lightbox.active {
+      display: flex;
+    }
+
+    .photo-lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar-wrap">
+    <div class="topbar-logo-box">
+      <img src="images/societylogo.jpg" alt="Software Society Logo">
+    </div>
+    <div class="topbar">
+      <h1>Software Society, SUST</h1>
+    </div>
+  </div>
+  <nav class="navbar">
+    <a href="index.html">Home</a>
+    <a href="notices.html">Notices</a>
+    <a href="events.html">Events</a>
+    <a href="resources.html">Resources</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="achievements.html">Achievements</a>
+    <a href="committee.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="container">
+    <div class="committee-header">
+      <p class="section-title">Executive Committee</p>
+    </div>
+    <div class="committee-panel">
+      <div id="committee-list"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    // Click-to-expand photo lightbox, scoped to the committee page only.
+    // Runs after script.js's own DOMContentLoaded render, using event
+    // delegation so it works on photos rendered dynamically into #committee-list.
+    document.addEventListener("DOMContentLoaded", () => {
+      const lightbox = document.createElement("div");
+      lightbox.className = "photo-lightbox";
+      lightbox.innerHTML = '<img alt="Committee member photo">';
+      document.body.appendChild(lightbox);
+      const lightboxImg = lightbox.querySelector("img");
+
+      document.getElementById("committee-list").addEventListener("click", e => {
+        const img = e.target.closest(".profile-card img");
+        if (!img) return;
+        lightboxImg.src = img.src;
+        lightbox.classList.add("active");
+      });
+
+      lightbox.addEventListener("click", () => lightbox.classList.remove("active"));
+    });
+  </script>
+  <footer class="info-footer">
+    <div class="info-footer-grid">
+      <div class="info-footer-col">
+        <h3>About Software Society</h3>
+        <div class="underline"></div>
+        <p>Software Society, SUST is one of the most active student bodies at Shahjalal University of Science and Technology. Our work is built on three core values: learning, collaboration, and growth. By upholding these principles, we help members turn classroom knowledge into practical, industry-ready skills.</p>
+      </div>
+      <div class="info-footer-col">
+        <h3>Vision</h3>
+        <div class="underline"></div>
+        <p>Software Society, SUST aims to be the launchpad for future software engineers and innovators. Through our events, resources, and community, we intend to open new opportunities and advance the culture of software development among students.</p>
+      </div>
+      <div class="info-footer-col">
+        <h3>Contact Information</h3>
+        <div class="underline"></div>
+        <p>
+          Software Society, IICT, SUST<br>
+          Sylhet, Bangladesh<br>
+          Phone: 8801723459245<br>
+          Website: <a href="#">http://www.swesociety.com</a><br>
+          Email: <a href="mailto:softwaresociety@sust.edu">softwaresociety@sust.edu</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

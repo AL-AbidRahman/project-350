@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Resources</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Scoped to the resources page only */
+    .resources-header {
+      text-align: center;
+      margin: 6px 0 26px;
+    }
+
+    .resources-header .section-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: #1b2a38;
+      margin: 0 0 8px;
+    }
+
+    .resources-header .resources-subtitle {
+      font-size: 15px;
+      color: #595959;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1100px;
+    }
+
+    .resources-panel {
+      background: #ffffff;
+      border: 1px solid #e3e6ea;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .resources-filters {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .resources-filters select {
+      flex: 1;
+      min-width: 180px;
+      padding: 11px 40px 11px 14px;
+      border: 1px solid #d8dde3;
+      border-radius: 8px;
+      font-size: 14px;
+      background-color: #f8f9fb;
+      color: #1b2a38;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b95a1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+    }
+
+    .resources-filters select:focus {
+      outline: none;
+      border-color: #0d4b8f;
+      background-color: #fff;
+    }
+
+    #resource-list .list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: #f8f9fb;
+      border: 1px solid #e6e9ed;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    #resource-list .list-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    #resource-list .list-item span {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #1b2a38;
+    }
+
+    #resource-list .list-item span::before {
+      content: "";
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      background-color: #e7f0fb;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d4b8f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 17px;
+      border-radius: 9px;
+    }
+
+    /* Books - red PDF-style badge */
+    #resource-list .list-item.cat-books span::before {
+      background-color: #fdecea;
+      background-size: 24px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='2' width='20' height='20' rx='4' fill='%23e53935'/%3E%3Ctext x='12' y='16' font-family='Arial, sans-serif' font-size='7.5' font-weight='700' fill='white' text-anchor='middle'%3EPDF%3C/text%3E%3C/svg%3E");
+    }
+
+    /* Slides - orange presentation icon */
+    #resource-list .list-item.cat-slides span::before {
+      background-color: #fef3e6;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e8930c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='12' rx='2'/%3E%3Cpath d='M8 20h8M12 16v4'/%3E%3C/svg%3E");
+    }
+
+    /* Previous questions / PYQs - green question-mark icon */
+    #resource-list .list-item.cat-pyq span::before {
+      background-color: #e9f9ef;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2316a34a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5'/%3E%3Cline x1='12' y1='16.5' x2='12' y2='16.51'/%3E%3C/svg%3E");
+    }
+
+    #resource-list .list-item small {
+      display: none;
+    }
+
+    #resource-list .list-item a {
+      flex-shrink: 0;
+      padding: 9px 18px;
+      background: #0d4b8f;
+      color: #fff !important;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+
+    #resource-list .list-item a:hover {
+      background: #0a3a70;
+    }
+
+    #resource-list .empty {
+      text-align: center;
+      color: #999;
+      padding: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar-wrap">
+    <div class="topbar-logo-box">
+      <img src="images/societylogo.jpg" alt="Software Society Logo">
+    </div>
+    <div class="topbar">
+      <h1>Software Society, SUST</h1>
+    </div>
+  </div>
+  <nav class="navbar">
+    <a href="index.html">Home</a>
+    <a href="notices.html">Notices</a>
+    <a href="events.html">Events</a>
+    <a href="resources.html">Resources</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="achievements.html">Achievements</a>
+    <a href="committee.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="container">
+    <div class="resources-header">
+      <p class="section-title">Study Resources</p>
+    </div>
+    <div class="resources-panel">
+      <div class="resources-filters">
+        <select id="filter-category"></select>
+        <select id="filter-batch"></select>
+      </div>
+      <div id="resource-list"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    // Scoped to the resources page only. Runs after script.js's own
+    // DOMContentLoaded render (renderResources()), which already populated
+    // #filter-category from whatever data exists and wired up its change
+    // listener. Here we just replace the option list with the fixed set of
+    // categories (the listener stays attached since we don't touch the
+    // <select> node itself), and tag each rendered row with a class so CSS
+    // can show a distinct icon per category - re-running on every re-render
+    // via a MutationObserver, since filtering rebuilds #resource-list.
+    document.addEventListener("DOMContentLoaded", () => {
+      const catSel = document.getElementById("filter-category");
+      if (catSel) {
+        catSel.innerHTML = `
+          <option value="Lecture notes">Lecture Notes</option>
+          <option value="Books">Books</option>
+          <option value="Slides">Slides</option>
+          <option value="Previous questions">PYQs</option>
+        `;
+      }
+
+      const list = document.getElementById("resource-list");
+      if (!list) return;
+
+      function categoryClass(text) {
+        if (/book/i.test(text)) return "cat-books";
+        if (/slide/i.test(text)) return "cat-slides";
+        if (/previous|pyq/i.test(text)) return "cat-pyq";
+        return "cat-lecture";
+      }
+
+      function tagRows() {
+        list.querySelectorAll(".list-item").forEach(item => {
+          const small = item.querySelector("small");
+          item.classList.add(categoryClass(small ? small.textContent : ""));
+        });
+      }
+
+      tagRows();
+      new MutationObserver(tagRows).observe(list, { childList: true });
+    });
+  </script>
+  <footer class="info-footer">
+    <div class="info-footer-grid">
+      <div class="info-footer-col">
+        <h3>About Software Society</h3>
+        <div class="underline"></div>
+        <p>Software Society, SUST is one of the most active student bodies at Shahjalal University of Science and Technology. Our work is built on three core values: learning, collaboration, and growth. By upholding these principles, we help members turn classroom knowledge into practical, industry-ready skills.</p>
+      </div>
+      <div class="info-footer-col">
+        <h3>Vision</h3>
+        <div class="underline"></div>
+        <p>Software Society, SUST aims to be the launchpad for future software engineers and innovators. Through our events, resources, and community, we intend to open new opportunities and advance the culture of software development among students.</p>
+      </div>
+      <div class="info-footer-col">
+        <h3>Contact Information</h3>
+        <div class="underline"></div>
+        <p>
+          Software Society, IICT, SUST<br>
+          Sylhet, Bangladesh<br>
+          Phone: 8801723459245<br>
+          Website: <a href="#">http://www.swesociety.com</a><br>
+          Email: <a href="mailto:softwaresociety@sust.edu">softwaresociety@sust.edu</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

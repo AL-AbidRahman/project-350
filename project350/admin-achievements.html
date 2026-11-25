@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Achievements</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header><span class="logo">Admin panel</span><a href="admin-dashboard.html" style="margin-left:auto;">Back</a>
+  </header>
+  <div class="container">
+    <form id="achievement-form" onsubmit="return false;" style="max-width:420px;">
+      <h3 style="margin-top:0;">Add achievement</h3>
+      <p style="font-size:12px;color:#777;margin:2px 0 12px;">Records shown here update the public Achievements page
+        immediately.</p>
+      <label>Student name</label>
+      <input type="text" id="ach-name">
+      <label>Achievement title</label>
+      <input type="text" id="ach-title">
+      <label>Achievement description</label>
+      <textarea id="ach-desc" rows="3"></textarea>
+      <label>Achievement photo</label>
+      <input type="file" id="ach-photo" accept="image/*">
+      <img id="ach-photo-preview" style="display:none; width:80px; height:80px; object-fit:cover; border-radius:6px; margin-top:8px;">
+      <p id="achievement-error" class="error"></p>
+      <button type="button" id="achievement-save-btn" style="width:100%;">Save</button>
+    </form>
+
+    <p class="section-title" style="margin-top:24px;">Current achievements</p>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Achievement</th>
+        <th>Actions</th>
+      </tr>
+      <tbody id="achievement-table-body"></tbody>
+    </table>
+  </div>
+  <script src="script.js"></script>
+  <script>requireLogin();</script>
+  <footer class="info-footer">
+    <div class="info-footer-grid">
+      <div class="info-footer-col">
+        <h3>About Software Society</h3>
+        <div class="underline"></div>
+        <p>Software Society, SUST is one of the most active student bodies at Shahjalal University of Science and Technology. Our work is built on three core values: learning, collaboration, and growth. By upholding these principles, we help members turn classroom knowledge into practical, industry-ready skills.</p>
+      </div>
+      <div class="info-footer-col">
+        <h3>Vision</h3>
+        <div class="underline"></div>
+        <p>Software Society, SUST aims to be the launchpad for future software engineers and innovators. Through our events, resources, and community, we intend to open new opportunities and advance the culture of software development among students.</p>
+      </div>
+      <div class="info-footer-col">
+        <h3>Contact Information</h3>
+        <div class="underline"></div>
+        <p>
+          Software Society, IICT, SUST<br>
+          Sylhet, Bangladesh<br>
+          Phone: 8801723459245<br>
+          Website: <a href="#">http://www.swesociety.com</a><br>
+          Email: <a href="mailto:softwaresociety@sust.edu">softwaresociety@sust.edu</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
